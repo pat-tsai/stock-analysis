@@ -18,11 +18,9 @@ In conclusion, stock tickers ENPH and RUN seem to be doing quite well, having a 
 
 
 ### Comparing time taken before and after refactoring
-Initially, the complete analysis took about 0.65 seconds to complete.
-![Screenshots](/Resources/unrefactored_time_results.PNG)
-
-Upon refactoring the code, the running time was significantly reduced, requiring <0.01 second for each year. The key changes that increased its efficiency were utilizing arrays to store the ticker volumes, as well as starting and ending prices, allowing us to remove the nested for loops in the unrefactored code. 
+![Screenshots](/Resources/unrefactored_time_results.PNG) 
 ![Screenshots](/Resources/refactored_time_results.PNG)
+Initially, the complete analysis took about 0.65 seconds to complete. Upon refactoring the code, the running time was significantly reduced, requiring <0.01 second for each year. The key changes that increased its efficiency were utilizing arrays to store the ticker volumes, as well as starting and ending prices, allowing us to remove the nested for loops in the unrefactored code. See below for key differences.
 
 Unrefactored pseudocode with nested for loop:
 ```
@@ -30,12 +28,14 @@ Unrefactored pseudocode with nested for loop:
    For i = 0 to 11
        ticker = tickers(i)
        totalVolume = 0
+       
        '5) loop through rows in the data
-       For j = 2 to RowCount
+        For j = 2 to RowCount
            '5a) Get total volume for current ticker
            '5b) get starting price for current ticker
            '5c) get ending price for current ticker
-       Next j
+        Next j
+        
        '6) Output data for current ticker
    Next i
 ```
@@ -58,3 +58,37 @@ Refactored code utilizing arrays and separating the nested loop:
         ...
     Next i
 ```
+
+## Summary
+### General pros and cons of refactoring code
+In general, it is beneficial to refactor code to fix existing bugs, optimize efficiency, or even add new features. This is especially pertinent for code that has been used for many years and may slowly become outdated. Refactoring code can also make it easier for the next programmer to read, allowing for it to be easily understood and further updated. However, refactoring existing, functional code also comes with cons. These include new bugs that may be introduced, or changing a line of code that could potentially break the whole program. In addition, although unrefactored code may not be efficient, it is possible it has been proven to be functional by undergoing numerous test cases. These test cases may not be available to be used on the newly refactored code, resulting in failure after it has been implemented.  
+
+### Advantages and disadvantages of the original and refactored VBA scripts
+By refactoring the original VBA script, we are now able to analyze much larger datasets at a much faster speed. There were not many cons for refactoring this code other than having to perform some debugging to complete the refactored code. However despite these changes, we are still unable to analyze tickers other than the 12 hardcoded tickers within the ticker array. If we were given additional ticker data, we would have to expand the size of that ticker array. In addition, limitations of both the original and refactored code is that the data must be cleaned with no missing values. This is due to the line 'RowCount = Cells(Rows.Count, "A").End(xlUp).Row' which determines the total number of rows in the document. If the excel data were not clean and had missing or "nan" values, the for loop 'For i = 2 To RowCount' would not iterate through the entire document. Lastly, in both the original and refactored code the data must be listed in contigious rows. This is because of the following logic: 
+```
+    '6b) loop over all the rows
+    For i = 2 To RowCount
+    
+        '7a) Increase volume for current ticker
+        tickerVolumes(tickerIndex) = tickerVolumes(tickerIndex) + Cells(i, 8).Value
+        
+        '7b) Check if the current row is the first row with the selected tickerIndex.
+        If Cells(i, 1).Value = tickers(tickerIndex) And Cells(i - 1, 1).Value <> tickers(tickerIndex) Then
+            
+            tickerStartingPrices(tickerIndex) = Cells(i, 6).Value
+                
+        End If
+        
+        '7c) check if the current row is the last row with the selected ticker
+        If Cells(i, 1).Value = tickers(tickerIndex) And Cells(i + 1, 1).Value <> tickers(tickerIndex) Then
+            
+            tickerEndingPrices(tickerIndex) = Cells(i, 6).Value
+            
+            '7d Increase the tickerIndex.
+            tickerIndex = tickerIndex + 1
+            
+        End If
+    
+    Next i
+```
+As shown in the code above, if ticker data were scrambled throughout the excel document and not listed in adjacent blocks, the ticker index would be prematurely incremented resulting in faulty data.
