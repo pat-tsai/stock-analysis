@@ -23,3 +23,37 @@ Initially, the complete analysis took about 0.65 seconds to complete.
 
 Upon refactoring the code, the running time was significantly reduced, requiring <0.01 second for each year. The key changes that increased its efficiency were utilizing arrays to store the ticker volumes, as well as starting and ending prices, allowing us to remove the nested for loops in the unrefactored code. 
 ![Screenshots](/Resources/refactored_time_results.PNG)
+
+Unrefactored pseudocode with nested for loop:
+''''
+4) Loop through tickers
+   For i = 0 to 11
+       ticker = tickers(i)
+       totalVolume = 0
+       '5) loop through rows in the data
+       For j = 2 to RowCount
+           '5a) Get total volume for current ticker
+           '5b) get starting price for current ticker
+           '5c) get ending price for current ticker
+       Next j
+       '6) Output data for current ticker
+   Next i
+'''
+Refactored code utilizing arrays and separating the nested loop:
+'''
+    For i = 2 To RowCount
+        '7a) Increase volume for current ticker
+        tickerVolumes(tickerIndex) = tickerVolumes(tickerIndex) + Cells(i, 8).Value
+       
+        '7b) Check if the current row is the first row with the selected tickerIndex.
+        '7c) check if the current row is the last row with the selected ticker
+            '7d Increase the tickerIndex.
+            tickerIndex = tickerIndex + 1
+        End If
+    Next i
+    
+    '8) Loop through your arrays to output the Ticker, Total Daily Volume, and Return.
+    For i = 0 To 11
+        ...
+    Next i
+'''
