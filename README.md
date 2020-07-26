@@ -25,7 +25,7 @@ Upon refactoring the code, the running time was significantly reduced, requiring
 ![Screenshots](/Resources/refactored_time_results.PNG)
 
 Unrefactored pseudocode with nested for loop:
-'''
+```
 4) Loop through tickers
    For i = 0 to 11
        ticker = tickers(i)
@@ -38,9 +38,10 @@ Unrefactored pseudocode with nested for loop:
        Next j
        '6) Output data for current ticker
    Next i
-'''
+```
+
 Refactored code utilizing arrays and separating the nested loop:
-'''
+```
     For i = 2 To RowCount
         '7a) Increase volume for current ticker
         tickerVolumes(tickerIndex) = tickerVolumes(tickerIndex) + Cells(i, 8).Value
@@ -56,4 +57,4 @@ Refactored code utilizing arrays and separating the nested loop:
     For i = 0 To 11
         ...
     Next i
-'''
+```
