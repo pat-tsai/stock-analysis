@@ -25,7 +25,7 @@ Upon refactoring the code, the running time was significantly reduced, requiring
 ![Screenshots](/Resources/refactored_time_results.PNG)
 
 Unrefactored pseudocode with nested for loop:
-''''
+'''
 4) Loop through tickers
    For i = 0 to 11
        ticker = tickers(i)
