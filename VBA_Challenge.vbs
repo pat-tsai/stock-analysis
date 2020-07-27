@@ -43,7 +43,8 @@ Sub AllStocksAnalysisRefactored()
     
     '5a) Create a ticker Index
     Dim tickerIndex As Integer
-
+    tickerIndex = 0
+    
     '5b) Create three output arrays
     Dim tickerVolumes(12) As Long
     Dim tickerStartingPrices(12), tickerEndingPrices(12) As Single
