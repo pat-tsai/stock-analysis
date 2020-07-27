@@ -104,15 +104,16 @@ Sub AllStocksAnalysisRefactored()
     dataRowStart = 4
     dataRowEnd = 15
 
-    'shading positive return rates as green
+    
     For i = dataRowStart To dataRowEnd
-        
+    'shading positive return rates as green 
         If Cells(i, 3) > 0 Then
-            
+           
             Cells(i, 3).Interior.Color = vbGreen
-            
+        
+    'shading negative return rates as red    
         Else
-    'shading negative return rates as red
+        
             Cells(i, 3).Interior.Color = vbRed
             
         End If
