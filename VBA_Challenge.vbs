@@ -99,10 +99,12 @@ Sub AllStocksAnalysisRefactored()
     Range("B4:B15").NumberFormat = "#,##0"
     Range("C4:C15").NumberFormat = "0.0%"
     Columns("B").AutoFit
-
+    
+    'output data sheet length
     dataRowStart = 4
     dataRowEnd = 15
 
+    'shading positive return rates as green
     For i = dataRowStart To dataRowEnd
         
         If Cells(i, 3) > 0 Then
@@ -110,7 +112,7 @@ Sub AllStocksAnalysisRefactored()
             Cells(i, 3).Interior.Color = vbGreen
             
         Else
-        
+    'shading negative return rates as red
             Cells(i, 3).Interior.Color = vbRed
             
         End If
