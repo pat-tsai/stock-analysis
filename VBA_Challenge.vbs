@@ -42,7 +42,7 @@ Sub AllStocksAnalysisRefactored()
     RowCount = Cells(Rows.Count, "A").End(xlUp).Row
     
     '5a) Create a ticker Index
-    tickerIndex = 0
+    Dim tickerIndex As Integer
 
     '5b) Create three output arrays
     Dim tickerVolumes(12) As Long
